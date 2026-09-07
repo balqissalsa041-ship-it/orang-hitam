@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RIFX Journal — Private Workspace</title>
+  <meta name="description" content="Minimal dark journal, video library, portfolio and notes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-glow"></div>
+    <div class="login-card">
+      <div class="brand-mark">G</div>
+      <p class="eyebrow">PRIVATE WORKSPACE</p>
+      <h1>Welcome<span>.</span></h1>
+      <p class="muted">Journal, video, portfolio, and ideas — all in one clean space.</p>
+
+      <button id="googleLogin" class="google-btn">
+        <span class="google-icon">G</span>
+        Continue with Google
+      </button>
+      <p class="demo-note">Demo login aktif untuk preview. Untuk login Gmail asli, pasang Google OAuth Client ID di konfigurasi.</p>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark small">G</div>
+        <div>
+          <strong>RIFX</strong>
+          <span>PRIVATE SPACE</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="journal"><span>◷</span> Journal</button>
+        <button class="nav-item" data-page="videos"><span>▶</span> Videos</button>
+        <button class="nav-item" data-page="portfolio"><span>◆</span> Portfolio</button>
+        <button class="nav-item" data-page="notes"><span>✦</span> Notes</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="profile-mini">
+          <div id="avatar" class="avatar">G</div>
+          <div>
+            <strong id="userName">Guest User</strong>
+            <span id="userEmail">Local preview</span>
+          </div>
+        </div>
+        <button id="logoutBtn" class="logout">Log out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="mobileMenu" class="icon-btn">☰</button>
+        <div>
+          <p class="eyebrow" id="pageEyebrow">PRIVATE WORKSPACE</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="top-actions">
+          <span id="today"></span>
+          <button class="icon-btn" id="themePulse" title="Accent">◐</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">YOUR SPACE</p>
+            <h1>Build. Track. <span>Remember.</span></h1>
+            <p class="hero-copy">A calm digital room for your trading journal, progress, videos, projects and private notes.</p>
+            <div class="hero-actions">
+              <button class="primary" data-go="journal">+ New Journal</button>
+              <button class="secondary" data-go="videos">Open Video Library</button>
+            </div>
+          </div>
+          <div class="hero-orbit"><div class="orbit-dot"></div><div class="orbit-core">G</div></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>Journal Entries</span><strong id="journalCount">0</strong><small>saved locally</small></div>
+          <div class="stat-card"><span>Videos</span><strong id="videoCount">0</strong><small>your library</small></div>
+          <div class="stat-card"><span>Portfolio</span><strong id="projectCount">0</strong><small>projects</small></div>
+          <div class="stat-card"><span>Notes</span><strong id="noteCount">0</strong><small>private ideas</small></div>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">QUICK VIEW</p><h3>Latest activity</h3></div></div>
+        <div id="latestActivity" class="activity-list empty-state">Belum ada aktivitas. Mulai dari Journal atau Video.</div>
+      </section>
+
+      <section id="journal" class="page">
+        <div class="section-heading">
+          <div><p class="eyebrow">TRADING / DAILY LOG</p><h3>Journal</h3></div>
+          <button class="primary" id="addJournalBtn">+ Add Entry</button>
+        </div>
+        <div id="journalList" class="card-list"></div>
+      </section>
+
+      <section id="videos" class="page">
+        <div class="section-heading">
+          <div><p class="eyebrow">WATCH / REVIEW</p><h3>Video Library</h3></div>
+          <button class="primary" id="addVideoBtn">+ Add Video</button>
+        </div>
+        <div class="video-layout">
+          <div id="videoGrid" class="video-grid"></div>
+          <div id="videoPlayer" class="player-panel">
+            <div class="player-placeholder">
+              <span>▶</span>
+              <p>Select a video</p>
+              <small>Video akan tampil di sini.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="page">
+        <div class="section-heading">
+          <div><p class="eyebrow">PROJECTS / WORK</p><h3>Portfolio</h3></div>
+          <button class="primary" id="addProjectBtn">+ Add Project</button>
+        </div>
+        <div id="portfolioGrid" class="portfolio-grid"></div>
+      </section>
+
+      <section id="notes" class="page">
+        <div class="section-heading">
+          <div><p class="eyebrow">THOUGHTS / IDEAS</p><h3>Notes</h3></div>
+          <button class="primary" id="addNoteBtn">+ Add Note</button>
+        </div>
+        <div id="notesGrid" class="notes-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-head"><h3 id="modalTitle">Add</h3><button id="closeModal" class="icon-btn">×</button></div>
+      <form id="modalForm"></form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
